@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>vertices</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<canvas id="tela-principal"></canvas>
+	<form id="painel-usuario">
+		<div id="painel-header">
+			<label id="painel-nome">Painel</label>
+			<div id="painel-minizar"></div>
+		</div>
+		<div id="painel-content">
+			<div class="painel-msg" id="painel-parte-1">
+				<label class="enunciado">Escolha a quantidade de vértices desejada:</label><br/>
+				<button type="button" id="subtBtn"><</button>
+				<label id="verticesQt">0</label>
+				<button type="button" id="addBtn">></button>
+				<button type="button" class="ok" id="ok1">Ok</button>
+				<label class="alert" id="alert1"></label>
+			</div>
+			
+			<div class="painel-msg" id="painel-parte-2">
+				<label class="enunciado">Arresta de um vértice a outro para criar arestas. Lembrando que arestas horizontais ou verticais tem o peso de 1 e arestas em diagonal tem o peso de raiz de 2.</label><br/>
+				<button type="button" id="limpar-arestas">Limpar</button>
+				<button type="button" class="ok" id="ok2">OK</button>
+				<label class="alert" id="alert2"></label>
+			</div>
+			
+			<div class="painel-msg" id="painel-parte-3">
+				<label class="enunciado">
+					Selecione primeiro o ponto de origem e em seguida o ponto de chegada.<br/>
+					Origem: <span id="origem"></span><br/>
+					Destino: <span id="destino"></span>
+				</label><br/>
+				<button type="button" id="limpar-origem-destino">Limpar</button>
+				<button type="button" class="ok" id="ok3">OK</button>
+				<label class="alert" id="alert3"></label>
+			</div>
+
+			<div id="painel-parte-4">
+				<label>Matriz de adjacência:
+					<br/>[0 0 0 0 0 0 0 0 0 0<br/>
+					0 0 0 0 0 0 0 0 0 0]</label><br/>
+				<label>Distância Manhatan: 0</label><br/>
+				<label>Sequência: A, B, C, D, E</label><br/>
+				<label>Distância percorrida pelo agente: 0</label><br/>
+				<label>Algoritmo usado: A*</label>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript" src="mouse.js"></script>
+	<script type="text/javascript" src="colisor.js"></script>
+	<script type="text/javascript" src="vertice.js"></script>
+	<script type="text/javascript" src="aresta.js"></script>
+	<script type="text/javascript" src="logica.js"></script>
+	<script type="text/javascript" src="tela.js"></script>
+	<script type="text/javascript">
+		exerc = new Tela();
+		exerc.ctor("tela-principal","painel-usuario");
+	</script>
+</body>
+</html>
