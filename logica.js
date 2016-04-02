@@ -5,7 +5,6 @@ Logica.prototype = {
 	sequencia: [],
 	verticeOrigem: {},
 	verticeDestino: {},
-	distanciaManhattan: 0,
 	distanciaPercorrida: 0,
 
 	popularMatriz : function(n) {
@@ -78,5 +77,58 @@ Logica.prototype = {
 	origemEDestino: function(verticeA, verticeB) {
 		this.verticeOrigem = verticeA;
 		this.verticeDestino = verticeB;
+	},
+
+	calcularDManhattan: function(verticeA, verticeB) { 
+		var dm = (verticeB.x - verticeA.x) + (verticeB.y - verticeA.y);
+		if (dm < 0)
+			return Math.sqrt(dm * -1);
+		else
+			return Math.sqrt(dm);
+	},
+
+	AEstrela: function(v) {
+		var Q = [];
+		Q.push(v[0]);
+		// ...
+	},
+
+	prim: function(arestas, vertices) {
+		var Q = vertices.slice(0);
+		var pai = [];
+		var chave = [];
+		var matriz = this.matrizAdjacencia;
+
+		for (i in Q) {
+			pai.push(-1);
+			chave.push(99);
+		}
+
+		chave[this.verticeOrigem.indice] = 0;
+
+		/*
+		while (Q != []) {
+			var i = 0;
+			var peso = 99;
+
+			for (ii in arestas) {
+				if (arestas[ii].peso < peso) {
+					peso = arestas[ii].peso;
+					i = ii;
+				}
+			}
+
+
+			for (iii in matriz[i]) {
+				if (matriz[i][iii] < chave[ii]) {
+					pai[iii] = i;
+					chave[iii] = matriz[i][iii];
+				}
+			}
+		}
+		*/
+
+		console.log(chave);
+		console.log(pai);
 	}
 }

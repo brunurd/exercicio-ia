@@ -10,6 +10,7 @@ Vertice.prototype = {
 	cor: "",
 	estaEmCima: false,
 	selecionado: false,
+	distanciaManhattan: 0,
 	
 	ctor: function(x,y,estaEmCima) {
 		this.x = x;

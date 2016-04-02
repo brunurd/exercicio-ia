@@ -29,6 +29,8 @@ Tela.prototype = {
     pontoBAresta: {},
     limparArestas: {},
     limparOrigemDestino: {},
+    matrizAdjacenciaLabel: {},
+    distanciaManhattanLabel: {},
  	vertices: [],
  	arestas: [],
  	origemDestino: [],
@@ -76,6 +78,8 @@ Tela.prototype = {
     	this.limparOrigemDestino = document.getElementById("limpar-origem-destino");
     	this.origemLabel = document.getElementById("origem");
     	this.destinoLabel = document.getElementById("destino");
+    	this.matrizAdjacenciaLabel = document.getElementById("matriz-adjacencia");
+    	this.distanciaManhattanLabel = document.getElementById("distancia-manhattan");
 
     	// Criando um colisor para o painel
     	this.painel.col = new Colisor();
@@ -212,10 +216,17 @@ Tela.prototype = {
     		}
     		else {
     			t.logica.origemEDestino(t.origemDestino[0], t.origemDestino[1]);
+    			
+    			var v = t.vertices;
+
+    			for (i = 0; i < t.logica.matrizAdjacencia.length; i++) {
+    				v[i].distanciaManhattan = t.logica.calcularDManhattan(v[i], t.origemDestino[1]);
+    			}
+
+    			// t.logica.prim(t.arestas, t.vertices);
     	   		t.parte3 = false;
     			t.parte4 = true;
     		}
-    		console.log(t.logica.matrizAdjacencia);
     	});
 
     	this.render();
@@ -442,6 +453,39 @@ Tela.prototype = {
     	}
     },
 
+
+    arredondar: function(n) {
+    	return (Math.floor(n/0.1))/10;
+    },
+
+    mostrarResultado: function() {
+    	if (this.parte4) {
+    		var m = this.logica.matrizAdjacencia;
+	    	var linha = "";
+
+	    	this.matrizAdjacenciaLabel.innerHTML = "Matriz de adjacência: <br/>";
+	    	
+	    	linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+	    	for (i in m) {
+	    		linha += i.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;";
+	    	}
+
+	    	linha += "<br/><br/>";
+
+	    	this.matrizAdjacenciaLabel.innerHTML += linha;
+
+	    	for (i in m) {
+	    		linha = i.toString() + "&nbsp;&nbsp;&nbsp;";
+	    		for (ii in m[i]) {
+	    			linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
+	    		}
+	    		linha += "<br/>";
+	    		this.matrizAdjacenciaLabel.innerHTML += linha;
+	    	}
+	    }
+    },
+
     render : function() {
     	var t = this;
     	var m = this.mouse;
@@ -494,6 +538,7 @@ Tela.prototype = {
 
 		this.ligandoOsVertices();
 		this.selecaoOrigemDestino();
+		this.mostrarResultado();
 
 		// Mostrar as arestas
 		for (i in this.arestas) {
