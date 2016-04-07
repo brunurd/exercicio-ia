@@ -80,56 +80,26 @@ Logica.prototype = {
 	},
 
 	calcularDManhattan: function() {
-		var vertx = (this.verticeDestino.x - this.verticeOrigem.x) / 140;
+        return this.calcularManhattanEntreDoisQuaisquerPontos(this.verticeOrigem, this.verticeDestino);
+	},
+    
+    calcularManhattanEntreDoisQuaisquerPontos: function(pontoA, pontoB){
+		var vertx = (pontoB.x - pontoA.x) / 140;
         var verty = 0;
-        if(this.verticeDestino.y - this.verticeOrigem.y > 0){
+        if(pontoB.y - pontoA.y > 0){
             verty = 1;
         } 
-        return vertx + verty;
-	},
+        return vertx + verty;        
+    },
 
 	AEstrela: function(v) {
-		var Q = [];
-		Q.push(v[0]);
-		// ...
+
 	},
-
-	prim: function(arestas, vertices) {
-		var Q = vertices.slice(0);
-		var pai = [];
-		var chave = [];
-		var matriz = this.matrizAdjacencia;
-
-		for (i in Q) {
-			pai.push(-1);
-			chave.push(99);
-		}
-
-		chave[this.verticeOrigem.indice] = 0;
-
-		/*
-		while (Q != []) {
-			var i = 0;
-			var peso = 99;
-
-			for (ii in arestas) {
-				if (arestas[ii].peso < peso) {
-					peso = arestas[ii].peso;
-					i = ii;
-				}
-			}
-
-
-			for (iii in matriz[i]) {
-				if (matriz[i][iii] < chave[ii]) {
-					pai[iii] = i;
-					chave[iii] = matriz[i][iii];
-				}
-			}
-		}
-		*/
-
-		console.log(chave);
-		console.log(pai);
-	}
+    
+    magnitudeParaDestino: function(verticeOriginal){
+        var magnitude = ((this.verticeDestino.x - verticeOriginal.x) + (this.verticeDestino.y - verticeOriginal.y)); 
+        if(magnitude > 0) return magnitude;
+        return magnitude * -1;  
+    }
+    
 }
