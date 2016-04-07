@@ -31,6 +31,8 @@ Tela.prototype = {
     limparOrigemDestino: {},
     matrizAdjacenciaLabel: {},
     distanciaManhattanLabel: {},
+    sequenciaLabel: {},
+    distanciaPercorridaLabel: {},
  	vertices: [],
  	arestas: [],
  	origemDestino: [],
@@ -80,6 +82,8 @@ Tela.prototype = {
     	this.destinoLabel = document.getElementById("destino");
     	this.matrizAdjacenciaLabel = document.getElementById("matriz-adjacencia");
     	this.distanciaManhattanLabel = document.getElementById("distancia-manhattan");
+    	this.sequenciaLabel = document.getElementById("sequencia");
+    	this.distanciaPercorridaLabel = document.getElementById("distancia-percorrida");
 
     	// Criando um colisor para o painel
     	this.painel.col = new Colisor();
@@ -460,30 +464,51 @@ Tela.prototype = {
 
     mostrarResultado: function() {
     	if (this.parte4) {
-    		var m = this.logica.matrizAdjacencia;
-	    	var linha = "";
-
-	    	this.matrizAdjacenciaLabel.innerHTML = "Matriz de adjacência: <br/>";
-	    	
-	    	linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-
-	    	for (i in m) {
-	    		linha += i.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;";
-	    	}
-
-	    	linha += "<br/><br/>";
-
-	    	this.matrizAdjacenciaLabel.innerHTML += linha;
-
-	    	for (i in m) {
-	    		linha = i.toString() + "&nbsp;&nbsp;&nbsp;";
-	    		for (ii in m[i]) {
-	    			linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
-	    		}
-	    		linha += "<br/>";
-	    		this.matrizAdjacenciaLabel.innerHTML += linha;
-	    	}
+            this.mostrarAdjacencia();
+	    	this.mostrarManhattan();
+            this.mostrarSequencia();            
+            this.mostrarDistanciaPercorrida();
 	    }
+    },
+    
+    mostrarAdjacencia: function(){
+        var m = this.logica.matrizAdjacencia;
+        var linha = "";
+
+        this.matrizAdjacenciaLabel.innerHTML = "Matriz de adjacência: <br/>";
+        
+        linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+        for (i in m) {
+            linha += i.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+
+        linha += "<br/><br/>";
+
+        this.matrizAdjacenciaLabel.innerHTML += linha;
+
+        for (i in m) {
+            linha = i.toString() + "&nbsp;&nbsp;&nbsp;";
+            for (ii in m[i]) {
+                linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
+            }
+            linha += "<br/>";
+            this.matrizAdjacenciaLabel.innerHTML += linha;
+        }        
+    },
+
+    mostrarManhattan: function(){                                
+        var mhtan = this.logica.calcularDManhattan();
+        var manhattan = mhtan.toString();
+        this.distanciaManhattanLabel.innerHTML = "Distância Manhattan: " + manhattan + "<br/";
+    },
+    
+    mostrarSequencia: function(){        
+        this.sequenciaLabel.innerHTML = "Sequência: T E S T E";
+    },
+    
+    mostrarDistanciaPercorrida: function(){
+        this.distanciaPercorridaLabel.innerHTML = "Distância percorrida pelo agente: 999";
     },
 
     render : function() {
