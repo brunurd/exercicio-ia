@@ -79,12 +79,13 @@ Logica.prototype = {
 		this.verticeDestino = verticeB;
 	},
 
-	calcularDManhattan: function(verticeA, verticeB) { 
-		var dm = (verticeB.x - verticeA.x) + (verticeB.y - verticeA.y);
-		if (dm < 0)
-			return Math.sqrt(dm * -1);
-		else
-			return Math.sqrt(dm);
+	calcularDManhattan: function() {
+		var vertx = (this.verticeDestino.x - this.verticeOrigem.x) / 140;
+        var verty = 0;
+        if(this.verticeDestino.y - this.verticeOrigem.y > 0){
+            verty = 1;
+        } 
+        return vertx + verty;
 	},
 
 	AEstrela: function(v) {

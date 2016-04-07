@@ -498,7 +498,7 @@ Tela.prototype = {
     },
 
     mostrarManhattan: function(){                                
-        var mhtan = 222;
+        var mhtan = this.logica.calcularDManhattan();
         var manhattan = mhtan.toString();
         this.distanciaManhattanLabel.innerHTML = "Distância Manhattan: " + manhattan + "<br/";
     },
