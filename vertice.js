@@ -66,5 +66,6 @@ Vertice.prototype = {
     
     pintar: function(){
         console.log("pintando");
+        // cor maneira: #2ed5b3;
     }
 }
