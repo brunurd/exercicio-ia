@@ -477,11 +477,10 @@ Tela.prototype = {
                 linha = String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;";
             
             for (j in m[i]) {
-                linha += this.arredondar(m[i][j]).toString();
                 if (m[i][j] > 1)
-                    linha += "&nbsp;&nbsp;";
+                    linha += "&radic;2&nbsp;&nbsp;&nbsp;";
                 else
-                    linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                    linha += m[i][j] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
 
             linha += "<br/>";
