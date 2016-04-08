@@ -10,7 +10,6 @@ Logica.prototype = {
     rodouAstar: false,
 
 	popularMatriz : function(n) {
-        console.log(n);
 		for (var i = 0; i < n; i++) {
 			this.matrizAdjacencia.push([]);
 			for (var ii = 0; ii < n; ii++) {
@@ -52,8 +51,11 @@ Logica.prototype = {
 
 	geraAresta: function(verticeA, verticeB) {
 		var peso = this.geraPeso(verticeA, verticeB);
-		this.matrizAdjacencia[verticeA.indice][verticeB.indice] = peso;
-		//this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso;
+        if(verticeA.letra.charCodeAt(0) < verticeB.letra.charCodeAt(0)){
+		    this.matrizAdjacencia[verticeA.indice][verticeB.indice] = peso;            
+        } else {
+		    this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso; 
+        }
 	},
 
 	geraPeso: function(verticeA, verticeB) {
@@ -92,12 +94,16 @@ Logica.prototype = {
     },
     
     calcularManhattanEntreDoisQuaisquerPontos: function(pontoA, pontoB){
-		var vertx = (pontoB.x - pontoA.x) / 140;
+        console.log(pontoA.x);
+        console.log(pontoB.x);
+		var vertx = 0;
         var verty = 0;
+        vertx = Math.abs(pontoB.x - pontoA.x) / 140;        
+        console.log(vertx);
         if(pontoB.y - pontoA.y > 0){
             verty = 1;
-        } 
-        return vertx + verty;        
+        }
+        return Math.abs(vertx + verty);        
     },
 
 	AEstrela: function() {
