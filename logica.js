@@ -94,12 +94,9 @@ Logica.prototype = {
     },
     
     calcularManhattanEntreDoisQuaisquerPontos: function(pontoA, pontoB){
-        console.log(pontoA.x);
-        console.log(pontoB.x);
 		var vertx = 0;
         var verty = 0;
         vertx = Math.abs(pontoB.x - pontoA.x) / 140;        
-        console.log(vertx);
         if(pontoB.y - pontoA.y != 0){
             verty = 1;
         }
@@ -117,7 +114,7 @@ Logica.prototype = {
         //unshift adiciona no comeco
         //pop remove o ultimo e retorna ele
         
-        var pontoAtual;
+        var pontoAtual = this.verticeOrigem;
         
         if(pontoAtual == this.verticeDestino){
             console.log("Acabou");
@@ -140,8 +137,37 @@ Logica.prototype = {
     
     medirMelhoresVizinhosDe: function(vertice){
         var melhorVizinho;
+        console.log("medindo vizinhos");
+        var vizinhos = this.encontrarVizinhoDe(vertice);
+        console.log(vizinhos);
+        
+        
+        console.log(vizinhos.vizinhosX[0]);
+        console.log(vizinhos.vizinhosY[0]);
+        console.log(vizinhos.vizinhosX[1]);
+        console.log(vizinhos.vizinhosY[1]);
+        console.log(vizinhos.vizinhosX[2]);
+        console.log(vizinhos.vizinhosY[2]);
+        
+
+        console.log("não medindo vizinhos");
         return melhorVizinho;
     },    
+    
+    encontrarVizinhoDe: function(vertice){
+        var indiceVerticeNaMatriz = vertice.letra.charCodeAt() - 65;
+        var vizinhosX = [];
+        var vizinhosY = [];
+        
+        for(var j=0; j < this.matrizAdjacencia[indiceVerticeNaMatriz].length; j++){
+            if(this.matrizAdjacencia[indiceVerticeNaMatriz][j] != 0){
+                vizinhosX.push(indiceVerticeNaMatriz);
+                vizinhosY.push(j);
+            }
+        }
+
+        return {vizinhosX: vizinhosX, vizinhosY: vizinhosY};
+    },
     
     magnitudeParaDestino: function(verticeOriginal){
         var magnitude = ((this.verticeDestino.x - verticeOriginal.x) + (this.verticeDestino.y - verticeOriginal.y)); 
