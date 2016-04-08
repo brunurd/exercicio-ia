@@ -100,7 +100,7 @@ Logica.prototype = {
         var verty = 0;
         vertx = Math.abs(pontoB.x - pontoA.x) / 140;        
         console.log(vertx);
-        if(pontoB.y - pontoA.y > 0){
+        if(pontoB.y - pontoA.y != 0){
             verty = 1;
         }
         return Math.abs(vertx + verty);        
