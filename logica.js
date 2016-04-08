@@ -8,6 +8,11 @@ Logica.prototype = {
 	distanciaPercorrida: 0,
     sequenciaString : "",
     rodouAstar: false,
+    tela: {},
+    
+    ctor: function(tela){
+        this.tela = tela;
+    },
 
 	popularMatriz : function(n) {
 		for (var i = 0; i < n; i++) {
@@ -108,65 +113,88 @@ Logica.prototype = {
             return;
         }
         
-        console.log(this.matrizAdjacencia);
-        
-        //push adiciona no fim
-        //unshift adiciona no comeco
-        //pop remove o ultimo e retorna ele
-        
         var pontoAtual = this.verticeOrigem;
         
-        if(pontoAtual == this.verticeDestino){
-            console.log("Acabou");
-            return;
+        for(var i = 0; i < this.tela.arestas.length + 1; i++){
+            this.sequencia.push(pontoAtual);
+            console.log(pontoAtual.letra);
+            console.log(this.verticeDestino.letra);
+            if(pontoAtual.letra == this.verticeDestino.letra){
+                console.log("Acabou");
+                break;
+            }
+            //pegar os vizinhos do ponto atual
+            //avaliar os pesos dos vizinhos do ponto atual
+            var novoPonto = this.medirMelhoresVizinhosDe(pontoAtual);
+            //inserir o ponto atual na sequencia
+            //ponto atual vira o ponto inserido no proximo ponto
+            console.log(novoPonto);
+            pontoAtual = novoPonto;
+            //repetir
         }
-        
-        //pegar os vizinhos do ponto atual
-        //avaliar os pesos dos vizinhos do ponto atual
-        var novoPonto = this.medirMelhoresVizinhosDe(pontoAtual);
-        //inserir o ponto atual na sequencia
-        this.sequencia.push(pontoAtual);
-        //ponto atual vira o ponto inserido no proximo ponto
-        pontoAtual = novoPonto;
-        //distanciaPercorrida += valor da aresta
-         
-        //repetir
-        
+        this.pintaSequencia();
         this.rodouAStar = true;
 	},
     
     medirMelhoresVizinhosDe: function(vertice){
         var melhorVizinho;
-        console.log("medindo vizinhos");
+        
         var vizinhos = this.encontrarVizinhoDe(vertice);
-        console.log(vizinhos);
         
+        var pesos = [];
+        var vertpesos = [];
         
-        console.log(vizinhos.vizinhosX[0]);
-        console.log(vizinhos.vizinhosY[0]);
-        console.log(vizinhos.vizinhosX[1]);
-        console.log(vizinhos.vizinhosY[1]);
-        console.log(vizinhos.vizinhosX[2]);
-        console.log(vizinhos.vizinhosY[2]);
+        var verticeFinal;
         
-
-        console.log("não medindo vizinhos");
-        return melhorVizinho;
+        for(var i = 0; i < vizinhos.length; i++){
+            pesos.push(this.matrizAdjacencia[vizinhos.x[i]][vizinhos.y[i]]);
+            vertpesos.push(this.pegarVerticeDestino(vertice, vizinhos.x[i], vizinhos.y[i]));
+        }
+        
+        //incompleto, vai retornar sempre o primeiro valor
+        //precisa retornar o valor correto ainda
+        console.log("arrumar este método");
+        
+        this.distanciaPercorrida += this.matrizAdjacencia[vizinhos.x[0]][vizinhos.y[0]];
+        return this.pegarVerticeDestino(vertice, vizinhos.x[0], vizinhos.y[0]);
     },    
+    
+    pegarVerticeDestino: function(verticeOriginal, arestax, arestay){
+        var letraOriginal = verticeOriginal.letra.charCodeAt();
+
+        var letraCode = 0;
+        if(letraOriginal != arestax + 65){
+            letraCode = arestax + 65;
+        } else {
+            letraCode = arestay + 65;
+        }
+        return this.pegarVertice(String.fromCharCode(letraCode));
+    },
+    
+    pegarVertice: function(letra){
+        for(var i = 0; i < this.tela.vertices.length; i++){
+            if(this.tela.vertices[i].letra == letra){
+                return this.tela.vertices[i];
+            }    
+        }
+    },
     
     encontrarVizinhoDe: function(vertice){
         var indiceVerticeNaMatriz = vertice.letra.charCodeAt() - 65;
-        var vizinhosX = [];
-        var vizinhosY = [];
+        var x = [];
+        var y = [];
+        var length = 0;
         
         for(var j=0; j < this.matrizAdjacencia[indiceVerticeNaMatriz].length; j++){
-            if(this.matrizAdjacencia[indiceVerticeNaMatriz][j] != 0){
-                vizinhosX.push(indiceVerticeNaMatriz);
-                vizinhosY.push(j);
+            if((this.matrizAdjacencia[indiceVerticeNaMatriz][j] != 0)
+            &&(indiceVerticeNaMatriz!=this.matrizAdjacencia[indiceVerticeNaMatriz].length-1)){
+                x.push(indiceVerticeNaMatriz);
+                y.push(j);
+                length += 1;
             }
         }
 
-        return {vizinhosX: vizinhosX, vizinhosY: vizinhosY};
+        return {x: x, y: y, length: length};
     },
     
     magnitudeParaDestino: function(verticeOriginal){
@@ -176,12 +204,13 @@ Logica.prototype = {
     },
     
     pintaSequencia: function(){
-        var vert;
-        for(vert in sequencia){
-            vert.pintar();
-            sequenciaString += vert.letra;
-        }
-        
+        for(var i = 0; i < this.sequencia.length; i++){
+            console.log(this.sequencia[i]);
+            this.sequencia[i].pintar();
+            this.sequenciaString += this.sequencia[i].letra;
+        }        
+        // this.sequenciaString += this.verticeDestino.letra;
+        // this.verticeDestino.pintar();
     }
     
 }

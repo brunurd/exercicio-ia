@@ -101,6 +101,7 @@ Tela.prototype = {
     	var posY = this.canvas.height/2;
 
     	this.logica = new Logica();
+        this.logica.ctor(this);
 
     	// Instanciando os vertices
     	for (i = 0; i < 10; i++) {
@@ -445,8 +446,8 @@ Tela.prototype = {
 
     mostrarResultado: function() {
     	if (this.parte4) {
-            this.logica.AEstrela();
             this.mostrarAdjacencia();
+            this.logica.AEstrela();
 	    	this.mostrarManhattan();
             this.mostrarSequencia();            
             this.mostrarDistanciaPercorrida();

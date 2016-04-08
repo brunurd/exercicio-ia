@@ -10,8 +10,9 @@ Vertice.prototype = {
 	cor: "",
 	estaEmCima: false,
 	selecionado: false,
+    pintado: false,
 	distanciaManhattan: 0,
-	
+
 	ctor: function(x,y,estaEmCima) {
 		this.x = x;
 		this.y = y;
@@ -35,7 +36,9 @@ Vertice.prototype = {
 	},
 
 	mostrar: function(ctx) {
-		if (this.selecionado)
+        if(this.pintado)
+            this.cor = "#2ed5b3";
+        else if (this.selecionado)
 			this.cor = "#d3cc32";
 		else
 			this.cor = "#4e6b6b";
@@ -65,7 +68,7 @@ Vertice.prototype = {
 	},
     
     pintar: function(){
-        console.log("pintando");
+        this.pintado = true;
         // cor maneira: #2ed5b3;
     }
 }
