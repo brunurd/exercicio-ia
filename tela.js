@@ -447,8 +447,8 @@ Tela.prototype = {
     mostrarResultado: function() {
     	if (this.parte4) {
             this.mostrarAdjacencia();
-            this.logica.AEstrela();
 	    	this.mostrarManhattan();
+            this.logica.AEstrela();
             this.mostrarSequencia();            
             this.mostrarDistanciaPercorrida();
 	    }
