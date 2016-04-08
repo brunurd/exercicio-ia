@@ -7,8 +7,10 @@ Logica.prototype = {
 	verticeDestino: {},
 	distanciaPercorrida: 0,
     sequenciaString : "",
+    rodouAstar: false,
 
 	popularMatriz : function(n) {
+        console.log(n);
 		for (var i = 0; i < n; i++) {
 			this.matrizAdjacencia.push([]);
 			for (var ii = 0; ii < n; ii++) {
@@ -85,8 +87,8 @@ Logica.prototype = {
 	},
     
     origemEDestinoEstaoNaMesmaArvore: function(origem, destino){
-        
-        return false;
+        //verificar se o ponto de origem e destino estão conectados
+        return true;
     },
     
     calcularManhattanEntreDoisQuaisquerPontos: function(pontoA, pontoB){
@@ -98,7 +100,12 @@ Logica.prototype = {
         return vertx + verty;        
     },
 
-	AEstrela: function(v) {
+	AEstrela: function() {
+        if(this.rodouAStar) {
+            return;
+        }
+        
+        console.log(this.matrizAdjacencia);
         
         //push adiciona no fim
         //unshift adiciona no comeco
@@ -113,16 +120,16 @@ Logica.prototype = {
         
         //pegar os vizinhos do ponto atual
         //avaliar os pesos dos vizinhos do ponto atual
-        var novoPonto = medirMelhoresVizinhosDe(pontoAtual);
+        var novoPonto = this.medirMelhoresVizinhosDe(pontoAtual);
         //inserir o ponto atual na sequencia
-        sequencia.push(pontoAtual);
+        this.sequencia.push(pontoAtual);
         //ponto atual vira o ponto inserido no proximo ponto
         pontoAtual = novoPonto;
         //distanciaPercorrida += valor da aresta
          
         //repetir
         
-        
+        this.rodouAStar = true;
 	},
     
     medirMelhoresVizinhosDe: function(vertice){

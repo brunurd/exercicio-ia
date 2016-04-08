@@ -221,7 +221,6 @@ Tela.prototype = {
             
             // calcular se o destino faz parte do mesmo caminho que a origem
             if(!t.logica.origemEDestinoEstaoNaMesmaArvore(t.origemDestino[0], t.origemDestino[1])){ 
-                console.log("aeeerr");
     			t.alert3.innerHTML = "Origem e Destino não fazem parte da mesma árvore";
                 return;
             }
@@ -475,12 +474,14 @@ Tela.prototype = {
 
     mostrarResultado: function() {
     	if (this.parte4) {
+            this.logica.AEstrela();
             this.mostrarAdjacencia();
 	    	this.mostrarManhattan();
             this.mostrarSequencia();            
             this.mostrarDistanciaPercorrida();
 	    }
     },
+    
     
     mostrarAdjacencia: function(){
         var m = this.logica.matrizAdjacencia;
@@ -490,16 +491,16 @@ Tela.prototype = {
         
         linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
-        for (i in m) {
-            linha += i.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;";
+        for(var i = 0; i < m.length; i++){
+            linha += String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;&nbsp;";
         }
 
         linha += "<br/><br/>";
 
         this.matrizAdjacenciaLabel.innerHTML += linha;
 
-        for (i in m) {
-            linha = i.toString() + "&nbsp;&nbsp;&nbsp;";
+        for (var i = 0; i < m.length; i++) {
+            linha = String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;";
             for (ii in m[i]) {
                 linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
             }
@@ -518,7 +519,7 @@ Tela.prototype = {
     },
     
     mostrarDistanciaPercorrida: function(){
-        this.distanciaPercorridaLabel.innerHTML = "Distância percorrida pelo agente: " + this.logica.distanciaPercorrida;
+        this.distanciaPercorridaLabel.innerHTML = "Distância percorrida pelo agente: " + this.logica.distanciaPercorrida;  
     },
 
     render : function() {
