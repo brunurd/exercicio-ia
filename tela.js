@@ -357,35 +357,6 @@ Tela.prototype = {
 		}
     },
 
-    moverPainel: function() {
-		var t = this;
-
-		if (this.mouse.click(this.painel.col) && this.move) {
-			setTimeout(function() {
-				if (!t.painel.dragging)
-					t.painel.dragging = true;
-				else
-					t.painel.dragging = false;
-			}, 16);		
-		}
-
-		if (this.painel.col.colisaoPonto(this.mouse.x, this.mouse.y)) {
-			if (this.painel.dragging)
-				this.painel.style.cursor = "move";
-			else
-				this.painel.style.cursor = "pointer";
-		}
-
-		if (this.painel.dragging) {
-			this.painel.col.A = {x: this.mouse.x - this.painel.col.width/2,
-								y: this.mouse.y - this.painel.col.height/2};
-			this.painel.col.B = {x: this.mouse.x + this.painel.col.width,
-							y: this.mouse.y + this.painel.col.height};
-			this.painel.style.top = this.painel.col.A.y + "px";
-			this.painel.style.left = this.painel.col.A.x + "px";
-		}
-    },
-
     ligandoOsVertices: function() {
     	if (this.parte2) {
     		var m = this.mouse;
@@ -489,21 +460,30 @@ Tela.prototype = {
 
         this.matrizAdjacenciaLabel.innerHTML = "Matriz de adjacência: <br/>";
         
-        linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
         for(var i = 0; i < m.length; i++){
-            linha += String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;&nbsp;";
+          linha += String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         }
 
-        linha += "<br/><br/>";
+        linha += "<br/>";
 
         this.matrizAdjacenciaLabel.innerHTML += linha;
 
         for (var i = 0; i < m.length; i++) {
-            linha = String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;";
-            for (ii in m[i]) {
-                linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
+            if (String.fromCharCode(65+i) == 'I')
+                linha = String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;&nbsp;";
+            else
+                linha = String.fromCharCode(65+i) + "&nbsp;&nbsp;&nbsp;";
+            
+            for (j in m[i]) {
+                linha += this.arredondar(m[i][j]).toString();
+                if (m[i][j] > 1)
+                    linha += "&nbsp;&nbsp;";
+                else
+                    linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
+
             linha += "<br/>";
             this.matrizAdjacenciaLabel.innerHTML += linha;
         }        
@@ -511,7 +491,7 @@ Tela.prototype = {
 
     mostrarManhattan: function(){                                
         var manhattan = this.logica.calcularDManhattan().toString();
-        this.distanciaManhattanLabel.innerHTML = "Distância Manhattan: " + manhattan + "<br/";
+        this.distanciaManhattanLabel.innerHTML = "Distância Manhattan: " + manhattan + "<br/>";
     },
     
     mostrarSequencia: function(){
@@ -539,23 +519,21 @@ Tela.prototype = {
 		}
 
 		// Muda o cursor para indicar que é clicável
-			if (this.vertices[0].col.colisaoPonto(m.x,m.y) || this.vertices[1].col.colisaoPonto(m.x,m.y) ||
-				this.vertices[2].col.colisaoPonto(m.x,m.y) || this.vertices[3].col.colisaoPonto(m.x,m.y) ||
-				this.vertices[4].col.colisaoPonto(m.x,m.y) || this.vertices[5].col.colisaoPonto(m.x,m.y) ||
-				this.vertices[6].col.colisaoPonto(m.x,m.y) || this.vertices[7].col.colisaoPonto(m.x,m.y) ||
-				this.vertices[8].col.colisaoPonto(m.x,m.y) || this.vertices[9].col.colisaoPonto(m.x,m.y))
-			{
-				if (this.parte2 || this.parte3) {
-					this.canvas.style.cursor = "pointer";
-				}
-				else
-					this.canvas.style.cursor = "default";
+		if (this.vertices[0].col.colisaoPonto(m.x,m.y) || this.vertices[1].col.colisaoPonto(m.x,m.y) ||
+			this.vertices[2].col.colisaoPonto(m.x,m.y) || this.vertices[3].col.colisaoPonto(m.x,m.y) ||
+			this.vertices[4].col.colisaoPonto(m.x,m.y) || this.vertices[5].col.colisaoPonto(m.x,m.y) ||
+			this.vertices[6].col.colisaoPonto(m.x,m.y) || this.vertices[7].col.colisaoPonto(m.x,m.y) ||
+			this.vertices[8].col.colisaoPonto(m.x,m.y) || this.vertices[9].col.colisaoPonto(m.x,m.y))
+		{
+			if (this.parte2 || this.parte3) {
+				this.canvas.style.cursor = "pointer";
 			}
 			else
 				this.canvas.style.cursor = "default";
+		}
+		else
+			this.canvas.style.cursor = "default";
 
-		// moverPainel();
-		
 		// O usuário pode mover a posição dos vértices
 		if (!this.mouse.click(this.painel.col) && this.move) {
 			if (this.mouse.click(this.col)) {

@@ -15,7 +15,7 @@
 			left: 10px;
 			z-index: 1;
 			border-radius: 10px;
-			width: 300px;
+			width: 400px;
 			height: auto;
 			box-shadow: 2px 2px 3px #ddd;
 		}
@@ -45,6 +45,7 @@
 		}
 
 		#painel-content {
+			width: 90%;
 			padding: 20px;
 			float: left;
 		}
