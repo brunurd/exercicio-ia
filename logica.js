@@ -6,6 +6,7 @@ Logica.prototype = {
 	verticeOrigem: {},
 	verticeDestino: {},
 	distanciaPercorrida: 0,
+    sequenciaString : "",
 
 	popularMatriz : function(n) {
 		for (var i = 0; i < n; i++) {
@@ -50,7 +51,7 @@ Logica.prototype = {
 	geraAresta: function(verticeA, verticeB) {
 		var peso = this.geraPeso(verticeA, verticeB);
 		this.matrizAdjacencia[verticeA.indice][verticeB.indice] = peso;
-		this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso;
+		//this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso;
 	},
 
 	geraPeso: function(verticeA, verticeB) {
@@ -83,6 +84,11 @@ Logica.prototype = {
         return this.calcularManhattanEntreDoisQuaisquerPontos(this.verticeOrigem, this.verticeDestino);
 	},
     
+    origemEDestinoEstaoNaMesmaArvore: function(origem, destino){
+        
+        return false;
+    },
+    
     calcularManhattanEntreDoisQuaisquerPontos: function(pontoA, pontoB){
 		var vertx = (pontoB.x - pontoA.x) / 140;
         var verty = 0;
@@ -93,13 +99,50 @@ Logica.prototype = {
     },
 
 	AEstrela: function(v) {
-
+        
+        //push adiciona no fim
+        //unshift adiciona no comeco
+        //pop remove o ultimo e retorna ele
+        
+        var pontoAtual;
+        
+        if(pontoAtual == this.verticeDestino){
+            console.log("Acabou");
+            return;
+        }
+        
+        //pegar os vizinhos do ponto atual
+        //avaliar os pesos dos vizinhos do ponto atual
+        var novoPonto = medirMelhoresVizinhosDe(pontoAtual);
+        //inserir o ponto atual na sequencia
+        sequencia.push(pontoAtual);
+        //ponto atual vira o ponto inserido no proximo ponto
+        pontoAtual = novoPonto;
+        //distanciaPercorrida += valor da aresta
+         
+        //repetir
+        
+        
 	},
+    
+    medirMelhoresVizinhosDe: function(vertice){
+        var melhorVizinho;
+        return melhorVizinho;
+    },    
     
     magnitudeParaDestino: function(verticeOriginal){
         var magnitude = ((this.verticeDestino.x - verticeOriginal.x) + (this.verticeDestino.y - verticeOriginal.y)); 
         if(magnitude > 0) return magnitude;
         return magnitude * -1;  
+    },
+    
+    pintaSequencia: function(){
+        var vert;
+        for(vert in sequencia){
+            vert.pintar();
+            sequenciaString += vert.letra;
+        }
+        
     }
     
 }

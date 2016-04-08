@@ -62,5 +62,9 @@ Vertice.prototype = {
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.raio, 0, 2 * Math.PI);
 		ctx.stroke();
-	}
+	},
+    
+    pintar: function(){
+        console.log("pintando");
+    }
 }

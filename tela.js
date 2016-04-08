@@ -173,9 +173,12 @@ Tela.prototype = {
     	});
 
     	this.btnOk2.addEventListener("click", function() {
-    		var Q = [];
+            /*
+            lógica que calcula pra saber se essa parada tá toda interconectada 
+    		
+            var Q = [];
     		var matriz = [];
-
+            
     		for (i in t.logica.matrizAdjacencia) {
     			matriz.push([]);
     			matriz[i] = t.logica.matrizAdjacencia[i].slice(0);
@@ -205,32 +208,40 @@ Tela.prototype = {
 				if (Q[i])
 					ii = Q[i].indice;
 			}
-
     		if (Q.length == matriz.length) {
-				t.parte2 = false;
-				t.parte3 = true;
     		}
     		else
     			t.alert2.innerHTML = "Todos os vértices devem estar interligados.";
+            */
+            t.parte2 = false;
+            t.parte3 = true;
     	});
 
     	this.btnOk3.addEventListener("click", function() {
-    		if (t.origemDestino.length < 2) {
-    			t.alert3.innerHTML = "É necessário selecionar ambos: origem e destino.";
-    		}
-    		else {
-    			t.logica.origemEDestino(t.origemDestino[0], t.origemDestino[1]);
-    			
-    			var v = t.vertices;
+            
+            // calcular se o destino faz parte do mesmo caminho que a origem
+            if(!t.logica.origemEDestinoEstaoNaMesmaArvore(t.origemDestino[0], t.origemDestino[1])){ 
+                console.log("aeeerr");
+    			t.alert3.innerHTML = "Origem e Destino não fazem parte da mesma árvore";
+                return;
+            }
+            
+            if (t.origemDestino.length < 2) {
+                t.alert3.innerHTML = "É necessário selecionar ambos: origem e destino.";        
+            }
+            else {
+                t.logica.origemEDestino(t.origemDestino[0], t.origemDestino[1]);
+                
+                var v = t.vertices;
 
-    			for (i = 0; i < t.logica.matrizAdjacencia.length; i++) {
-    				v[i].distanciaManhattan = t.logica.calcularDManhattan(v[i], t.origemDestino[1]);
-    			}
+                for (i = 0; i < t.logica.matrizAdjacencia.length; i++) {
+                    v[i].distanciaManhattan = t.logica.calcularDManhattan(v[i], t.origemDestino[1]);
+                }
 
-    			// t.logica.prim(t.arestas, t.vertices);
-    	   		t.parte3 = false;
-    			t.parte4 = true;
-    		}
+                
+                t.parte3 = false;
+                t.parte4 = true;
+            }
     	});
 
     	this.render();
@@ -502,12 +513,12 @@ Tela.prototype = {
         this.distanciaManhattanLabel.innerHTML = "Distância Manhattan: " + manhattan + "<br/";
     },
     
-    mostrarSequencia: function(){        
-        this.sequenciaLabel.innerHTML = "Sequência: T E S T E";
+    mostrarSequencia: function(){
+        this.sequenciaLabel.innerHTML = "Sequência: " + this.logica.sequenciaString;
     },
     
     mostrarDistanciaPercorrida: function(){
-        this.distanciaPercorridaLabel.innerHTML = "Distância percorrida pelo agente: 999";
+        this.distanciaPercorridaLabel.innerHTML = "Distância percorrida pelo agente: " + this.logica.distanciaPercorrida;
     },
 
     render : function() {
