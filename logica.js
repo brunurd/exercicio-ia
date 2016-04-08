@@ -126,6 +126,9 @@ Logica.prototype = {
             //pegar os vizinhos do ponto atual
             //avaliar os pesos dos vizinhos do ponto atual
             var novoPonto = this.medirMelhoresVizinhosDe(pontoAtual);
+            while(novoPonto==undefined){
+                novoPonto = this.medirMelhoresVizinhosDe(novoPonto);
+            }
             //inserir o ponto atual na sequencia
             //ponto atual vira o ponto inserido no proximo ponto
             console.log(novoPonto);
@@ -147,16 +150,20 @@ Logica.prototype = {
         var verticeFinal;
         
         for(var i = 0; i < vizinhos.length; i++){
-            pesos.push(this.matrizAdjacencia[vizinhos.x[i]][vizinhos.y[i]]);
-            vertpesos.push(this.pegarVerticeDestino(vertice, vizinhos.x[i], vizinhos.y[i]));
+            pesos.push([this.matrizAdjacencia[vizinhos.x[i]][vizinhos.y[i]],this.pegarVerticeDestino(vertice, vizinhos.x[i], vizinhos.y[i])]);
         }
+        
+        pesos.sort();
+        
+        if(pesos[0] == undefined) { return this.pegarVertice(String.fromCharCode(vertice.letra.charCodeAt() + 1 )); }
         
         //incompleto, vai retornar sempre o primeiro valor
         //precisa retornar o valor correto ainda
         console.log("arrumar este método");
         
-        this.distanciaPercorrida += this.matrizAdjacencia[vizinhos.x[0]][vizinhos.y[0]];
-        return this.pegarVerticeDestino(vertice, vizinhos.x[0], vizinhos.y[0]);
+        this.distanciaPercorrida += pesos[0][0];
+        // return this.pegarVerticeDestino(vertice, vizinhos.x[0], vizinhos.y[0]);
+        return pesos[0][1];
     },    
     
     pegarVerticeDestino: function(verticeOriginal, arestax, arestay){
