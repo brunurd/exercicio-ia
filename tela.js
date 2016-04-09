@@ -557,6 +557,7 @@ Tela.prototype = {
 		// Mostrar as arestas
 		for (i in this.arestas) {
 			this.arestas[i].mostrar(this.ctx);
+            this.arestas[i].pintar(this.vertices);
 		}
 
 		// Mostrar os vértices

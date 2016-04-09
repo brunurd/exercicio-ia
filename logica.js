@@ -17,7 +17,7 @@ Logica.prototype = {
 	popularMatriz : function(n) {
 		for (var i = 0; i < n; i++) {
 			this.matrizAdjacencia.push([]);
-			for (var ii = 0; ii < n; ii++) {
+			for (var j = 0; j < n; j++) {
 				this.matrizAdjacencia[i].push(0);
 			}
 		}
