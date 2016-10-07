@@ -1,96 +1,104 @@
-		html, body, canvas {
-			padding: 0;
-			margin: 0;
-			overflow: hidden;
-		}
+html, body, canvas {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
 
-		#tela-principal {
-			z-index: 0;
-		}
+#tela-principal {
+	z-index: 0;
+}
 
-		#painel-usuario {
-			background-color: #97fc9d;
-			position: absolute;
-			top: 10px;
-			left: 10px;
-			z-index: 1;
-			border-radius: 10px;
-			width: 300px;
-			height: auto;
-			box-shadow: 2px 2px 3px #ddd;
-		}
+#painel-usuario {
+	background-color: #97fc9d;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 1;
+	border-radius: 10px;
+	width: 300px;
+	height: auto;
+	box-shadow: 2px 2px 3px #ddd;
+}
 
-		label, button {
-			font-family: Trebuchet, 'Trebuchet MS', sans-serif;
-			font-size: 16px;
-			font-weight: bold;
-			color: #4e6b6b;
-		}
+label, button {
+	font-family: Trebuchet, 'Trebuchet MS', sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #4e6b6b;
+}
 
-		#painel-header {
-			border-top-left-radius: 5px;
-			border-top-right-radius: 5px;
-			background-color: #93da93;
-			padding: 10px;
-			height: 20px;
-		}
+#painel-header {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: #93da93;
+	padding: 10px;
+	height: 20px;
+}
 
-		#painel-minizar {
-			background-color: #4e6b6b;
-			width: 20px;
-			height: 20px;
-			float: right;
-			border-radius: 5px;
-			cursor: pointer;
-		}
+#painel-minizar {
+	background-color: #4e6b6b;
+	width: 20px;
+	height: 20px;
+	float: right;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
-		#painel-content {
-			padding: 20px;
-			float: left;
-		}
+#painel-content {
+	padding: 20px;
+	float: left;
+}
 
-		.enunciado {
-			float: left;
-			margin-bottom: 20px;
-		}
+.enunciado {
+	float: left;
+	margin-bottom: 20px;
+}
 
-		button {
-			border: none;
-			border-radius: 5px;
-			padding: 10px;
-			min-width: 40px;
-		}
+button {
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	min-width: 40px;
+}
 
-		button:focus {
-			outline: none;
-		}
+button:focus {
+	outline: none;
+}
 
-		button {
-			background-color: #83df86;
-			
-		}
+button {
+	background-color: #83df86;
+	
+}
 
-		button:hover {
-			background-color: #6fcb72;
-		}
+button:hover {
+	background-color: #6fcb72;
+}
 
-		#verticesQt {
-			padding: 10px 15px;
-			border-radius: 5px;
-			background-color: #FFF;
-		}
+#verticesQt {
+	padding: 10px 15px;
+	border-radius: 5px;
+	background-color: #FFF;
+}
 
-		.ok {
-			width: 100px;
-			float: right;
-		}
+.ok {
+	width: 100px;
+	float: right;
+}
 
-		.painel-msg {
-			display: none;
-		}
+.painel-msg {
+	display: none;
+}
 
-		.alert {
-			float: left;
-			margin-top: 20px;
-			color: #F00;
-		}
+.alert {
+	float: left;
+	margin-top: 20px;
+	color: #F00;
+}
+
+.sqrt {
+	font-family:arial;
+}
+
+.sqrt span {
+	text-decoration:overline;
+}

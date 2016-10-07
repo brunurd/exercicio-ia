@@ -142,8 +142,8 @@ Tela.prototype = {
 
     	this.limparArestas.addEventListener("click", function() {
     		for (i in t.logica.matrizAdjacencia) {
-    			for (ii in t.logica.matrizAdjacencia[i]) {
-    				t.logica.matrizAdjacencia[i][ii] = 0;
+    			for (j in t.logica.matrizAdjacencia[i]) {
+    				t.logica.matrizAdjacencia[i][j] = 0;
     			}
     		}
     		t.arestas = [];
@@ -173,45 +173,71 @@ Tela.prototype = {
     	});
 
     	this.btnOk2.addEventListener("click", function() {
-    		var Q = [];
-    		var matriz = [];
+            var matriz = t.logica.matrizAdjacencia,
+                vertices = t.vertices,
+                verticesUsados = [],
+                verticesInterligados = [],
+                arestas = t.arestas,
+                fila = [],
+                interligados = true;
 
-    		for (i in t.logica.matrizAdjacencia) {
-    			matriz.push([]);
-    			matriz[i] = t.logica.matrizAdjacencia[i].slice(0);
-    		}
+            for (i = 0; i < matriz.length; i++) {
+                verticesUsados.push(vertices[i]);
+            }
 
-    		var i = 0;
-    		var ii = 0;
-    		
-    		Q.push(t.vertices[i]);
+            if (arestas.length > 0) {
+                for (k in verticesUsados) {
+                    for (j in arestas) {
+                        if (arestas[j].A == verticesUsados[k] || arestas[j].B == verticesUsados[k]) {
+                            fila.push(verticesUsados[k]);
+                            break;
+                        }
+                    }
 
-    		while (i < Q.length) {
-	   			for (iii in matriz[ii]) {
-					if (matriz[ii][iii] > 0) {
-						var add = true;
-						for (v in Q) {
-							if (Q[v].letra == t.vertices[iii].letra) {
-								add = false;
-							}
-						}
-						if (add)
-							Q.push(t.vertices[iii]);
-					}
-					matriz[ii][iii] = -1;
-					matriz[iii][ii] = -1;
-				}
-				i += 1;
-				if (Q[i])
-					ii = Q[i].indice;
-			}
+                    while (fila.length > 0) {
+                        for (i in arestas) {
+                            if (arestas[i].A == fila[0]) {
+                                fila.push(arestas[i].B);
+                            }
+                        }
 
-    		if (Q.length == matriz.length) {
-				t.parte2 = false;
-				t.parte3 = true;
-    		}
-    		else
-    			t.alert2.innerHTML = "Todos os vértices devem estar interligados.";
+                        var deletarRepetido = verticesInterligados.indexOf(fila[0]);
+
+                        if (deletarRepetido != -1) {
+                            verticesInterligados.splice(deletarRepetido, 1);
+                        }
+
+                        verticesInterligados.push(fila[0]);
+                        fila.splice(0, 1);
+                    }
+
+                    if (verticesInterligados.length == verticesUsados.length) {
+                        interligados = true;
+                        break;
+                    }
+
+                    else {
+                        interligados = false;
+                    }
+                } 
+
+                console.log("----------------");
+                for (l in verticesInterligados) {
+                    console.log(l, " : ", verticesInterligados[l].letra);
+                }
+                console.log("----------------");
+            }
+
+            else {
+                interligados = false;
+            }
+
+            if (interligados) {
+                t.parte2 = false;
+                t.parte3 = true;
+            }
+            else
+                t.alert2.innerHTML = "Todos os vértices devem estar interligados.";
     	});
 
     	this.btnOk3.addEventListener("click", function() {
@@ -457,10 +483,11 @@ Tela.prototype = {
     	}
     },
 
-
+    /*
     arredondar: function(n) {
     	return (Math.floor(n/0.1))/10;
     },
+    */
 
     mostrarResultado: function() {
     	if (this.parte4) {
@@ -477,20 +504,26 @@ Tela.prototype = {
 
         this.matrizAdjacenciaLabel.innerHTML = "Matriz de adjacência: <br/>";
         
-        linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        linha += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
         for (i in m) {
-            linha += i.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;";
+            linha += this.vertices[i].letra + "&nbsp;&nbsp;&nbsp;&nbsp;";
         }
 
-        linha += "<br/><br/>";
+        linha += "<br/>";
 
         this.matrizAdjacenciaLabel.innerHTML += linha;
 
         for (i in m) {
-            linha = i.toString() + "&nbsp;&nbsp;&nbsp;";
-            for (ii in m[i]) {
-                linha += this.arredondar(m[i][ii]).toString() + "&nbsp;&nbsp;&nbsp;";
+            linha = this.vertices[i].letra + "&nbsp;&nbsp;&nbsp;";
+            for (k = 0; k < i + 1; k++) {
+                linha += "&nbsp;&nbsp;&nbsp;";
+            }
+            for (j in m[i]) {
+                if (m[i][j] > 1)
+                    linha += '<strong class="sqrt">√<span>2</span></strong>&nbsp;&nbsp;&nbsp;';
+                else
+                    linha += m[i][j].toString() + "&nbsp;&nbsp;&nbsp;";
             }
             linha += "<br/>";
             this.matrizAdjacenciaLabel.innerHTML += linha;
@@ -555,8 +588,8 @@ Tela.prototype = {
 				var m2 = this.mouse;
 
 				setTimeout(function() {
-					for (ii in t.vertices)
-						t.vertices[ii].translacao(m2.x - m1[0], m2.y - m1[1]);
+					for (j in t.vertices)
+						t.vertices[j].translacao(m2.x - m1[0], m2.y - m1[1]);
 				},16);
 			}
 		}

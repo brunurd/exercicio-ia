@@ -10,7 +10,7 @@ Logica.prototype = {
 	popularMatriz : function(n) {
 		for (var i = 0; i < n; i++) {
 			this.matrizAdjacencia.push([]);
-			for (var ii = 0; ii < n; ii++) {
+			for (var j = i + 1; j < n; j++) {
 				this.matrizAdjacencia[i].push(0);
 			}
 		}
@@ -49,8 +49,8 @@ Logica.prototype = {
 
 	geraAresta: function(verticeA, verticeB) {
 		var peso = this.geraPeso(verticeA, verticeB);
-		this.matrizAdjacencia[verticeA.indice][verticeB.indice] = peso;
-		this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso;
+		//this.matrizAdjacencia[verticeA.indice][verticeB.indice] = peso;
+		//this.matrizAdjacencia[verticeB.indice][verticeA.indice] = peso;
 	},
 
 	geraPeso: function(verticeA, verticeB) {
@@ -79,7 +79,7 @@ Logica.prototype = {
 		this.verticeDestino = verticeB;
 	},
 
-	calcularDManhattan: function() {
+	calcularDManhattan: function() { // tentar sem usar posição
 		var vertx = (this.verticeDestino.x - this.verticeOrigem.x) / 140;
         var verty = 0;
         if(this.verticeDestino.y - this.verticeOrigem.y > 0){
@@ -112,18 +112,18 @@ Logica.prototype = {
 			var i = 0;
 			var peso = 99;
 
-			for (ii in arestas) {
-				if (arestas[ii].peso < peso) {
-					peso = arestas[ii].peso;
-					i = ii;
+			for (j in arestas) {
+				if (arestas[j].peso < peso) {
+					peso = arestas[j].peso;
+					i = j;
 				}
 			}
 
 
-			for (iii in matriz[i]) {
-				if (matriz[i][iii] < chave[ii]) {
-					pai[iii] = i;
-					chave[iii] = matriz[i][iii];
+			for (k in matriz[i]) {
+				if (matriz[i][k] < chave[j]) {
+					pai[k] = i;
+					chave[k] = matriz[i][k];
 				}
 			}
 		}
